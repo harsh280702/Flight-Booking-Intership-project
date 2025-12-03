@@ -1,6 +1,7 @@
 package com.fbcode.Fb.Booking.Application.entity.booking;
 
 import com.fbcode.Fb.Booking.Application.entity.flight.FlightEntity;
+import com.fbcode.Fb.Booking.Application.entity.flight.FlightSchedule;
 import com.fbcode.Fb.Booking.Application.entity.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,11 +34,13 @@ public class BookingEntity {
     // Flight mapped
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flight_id", nullable = false)
-    private FlightEntity flight;
+    private FlightSchedule flight;
+
 
     // Number of seats booked
     @Column(nullable = false)
     private int seats;
+    private String seatClass;
 
     // Total price
     @Column(nullable = false)
@@ -54,4 +57,6 @@ public class BookingEntity {
     private String passengerName;
     private String passengerEmail;
     private String passengerPhone;
+
+
 }
