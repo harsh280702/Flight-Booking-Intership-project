@@ -1,0 +1,31 @@
+<div class="relative w-full h-[900px] overflow-hidden">
+  <!-- Image Slider -->
+
+    <div class="min-w-full h-[900px] relative">
+      <img  src="{{ image }}" alt="carousel image" class="w-full rotate-y-180 h-full object-cover" />
+
+      <!-- Overlay Text -->
+      <div class="absolute inset-0  bg-linear-to-r from-[#00000083] to-[#749ffa50] flex flex-col justify-center items-start text-white  px-4">
+       <div class="mt-14 ms-36  ">
+        <h2 class="mainheadline  text-[60px] font-bold     hover:first-letter:text-blue-600  leading-15" > Book Your Dream <br> Flight With Us </h2>
+        <p class="text-lg  w-[500px] mt-10"> Our First protiat is your comforted travel Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga totam, blanditiis qui perferendis dolore rerum ratione a harum facere inventore enim error quas? Dolorum, animi nobis asperiores consequuntur nostrum expedita? </p>
+        <div class="mt-10 ">
+         <ol class=" flex justify-start items-start ">
+          <li> <a href="#" class=" hover:border-0  relative  hover:text-white hover:font-medium hover:bg-blue-600 px-10 py-3 text-xl rounded-2xl border-2  text-blue-500 border-blue-600 bg-transparent " routerLink='/login'    routerLinkActive="router-link-active"> Login</a>
+           </li>
+             <li> <a href="#" class=" hover:border-0  relative  hover:text-white hover:font-medium hover:bg-green-600 px-10 py-3 text-xl mx-10 rounded-2xl border-2  text-green-500 border-green-600 bg-transparent " routerLink='/SingUp' routerLinkActive="router-link-active"> SingUp</a>
+           </li>
+
+
+         </ol>
+        </div>
+       </div>
+      </div>
+
+    </div>
+  </div>
+
+
+<app-seacrflight></app-seacrflight>
+
+<app-whychooseus></app-whychooseus>

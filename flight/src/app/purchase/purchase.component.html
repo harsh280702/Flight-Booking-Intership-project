@@ -1,0 +1,51 @@
+<div class="min-h-screen mt-32 p-6">
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <h2 class="text-2xl font-bold text-center text-indigo-600 mb-6">Purchase Tickets</h2>
+
+    <form formGroup="purchaseForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div formArrayName="passengers">
+        <ng-container *ngFor="let passenger of passengers.controls; let i = index">
+          <div formGroupName="i" class="border p-4 rounded-xl mb-4 relative">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" formControlName="name"
+                  class="w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Age</label>
+                <input type="number" formControlName="age"
+                  class="w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500" />
+              </div>
+            </div>
+            <button type="button" (click)="removePassenger(i)" *ngIf="passengers.length > 1"
+              class="absolute top-2 right-2 text-red-500 hover:underline">
+              Remove
+            </button>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <button type="button" (click)="addPassenger()"
+          class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">+ Add Passenger</button>
+        <span class="text-lg font-semibold text-indigo-700">Total Fare: ₹{{ totalFare }}</span>
+      </div>
+
+      <button  (click)="bookFlight()" type="submit"
+        class="w-full mt-6 bg-green-600 text-white font-semibold px-6 py-3 rounded-md hover:bg-green-700">
+        Book Tickets
+      </button>
+    </form>
+  </div>
+
+  <!-- ✅ Success Modal -->
+  <div *ngIf="showSuccessModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-xl shadow-lg max-w-sm w-full text-center">
+      <h3 class="text-2xl font-bold text-green-600 mb-4">Booking Successful!</h3>
+      <p class="text-gray-600 mb-6">Your tickets are confirmed.</p>
+      <button (click)="closeModal()"
+        class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700">Close</button>
+    </div>
+  </div>
+</div>

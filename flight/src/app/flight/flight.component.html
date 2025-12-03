@@ -1,0 +1,64 @@
+<div class="flex flex-col md:flex-row max-w-7xl mx-auto mt-32 px-4 gap-6">
+  <!-- Sidebar for Filters -->
+  <aside class="md:w-1/4 w-full bg-white p-5 rounded-lg shadow">
+    <h2 class="text-lg font-semibold mb-4 text-gray-700">Filters</h2>
+
+    <!-- Price Filter -->
+    <div class="mb-6">
+      <h3 class="text-sm font-medium text-gray-600 mb-1">Max Price: ₹{{filters.maxPrice}}</h3>
+      <input type="range" min="1000" max="10000" [(ngModel)]="filters.maxPrice" (change)="updatePrice(filters.maxPrice)" class="w-full" />
+    </div>
+
+    <!-- Stops Filter -->
+    <div class="mb-6">
+      <h3 class="text-sm font-medium text-gray-600 mb-1">Stops</h3>
+      <label class="block"><input type="checkbox" (change)="toggleFilter('stops', 0)"> Non-stop</label>
+      <label class="block"><input type="checkbox" (change)="toggleFilter('stops', 1)"> 1 Stop</label>
+      <label class="block"><input type="checkbox" (change)="toggleFilter('stops', 2)"> 2 Stops</label>
+    </div>
+
+    <!-- Airlines Filter -->
+    <div>
+      <h3 class="text-sm font-medium text-gray-600 mb-1">Airlines</h3>
+      <label class="block"><input type="checkbox" (change)="toggleFilter('airlines', 'Indigo')"> Indigo</label>
+      <label class="block"><input type="checkbox" (change)="toggleFilter('airlines', 'Air India')"> Air India</label>
+      <label class="block"><input type="checkbox" (change)="toggleFilter('airlines', 'SpiceJet')"> SpiceJet</label>
+    </div>
+  </aside>
+
+  <!-- Flight Cards -->
+  <main class="md:w-3/4 w-full space-y-6">
+    <h2 class="text-xl font-bold text-gray-800">Available Flights</h2>
+    <div *ngIf="filteredFlights.length === 0" class="text-center text-gray-500 py-10">No flights match your filters.</div>
+
+    <div *ngFor="let flight of filteredFlights" class="bg-white p-6 rounded-lg shadow hover:shadow-md transition">
+      <div class="flex justify-between items-center">
+        <div>
+          <h3 class="text-lg font-semibold">{{ flight.airline }}</h3>
+          <p class="text-sm text-gray-500">{{ flight.flightNumber }} | {{ flight.stops === 0 ? 'Non-stop' : flight.stops + ' Stop' }}</p>
+        </div>
+        <div class="text-center">
+          <p class="text-xl font-bold">{{ flight.departureTime }} - {{ flight.arrivalTime }}</p>
+          <p class="text-sm text-gray-400">{{ flight.from }} → {{ flight.to }}</p>
+        </div>
+        <div class="text-center">
+          <p class="text-xl font-bold">{{ flight.duration }}</p>
+          <p class="text-sm text-gray-400">{{ flight.travelClass }}</p>
+        </div>
+        <div class="text-right">
+          <p class="text-xl font-bold text-blue-600">₹{{ flight.price }}</p>
+          <button class="mt-2 px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+            <a routerLink="/PDT" routerLinkActive="router-link-active" >Book</a>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center mt-6">
+      <button *ngFor="let page of [1, 2, 3, 4, 5]" (click)="goToPage(page)" class="px-4 py-2 border rounded mx-1 hover:bg-gray-200">
+        {{ page }}
+      </button>
+    </div>
+  </main>
+</div>
