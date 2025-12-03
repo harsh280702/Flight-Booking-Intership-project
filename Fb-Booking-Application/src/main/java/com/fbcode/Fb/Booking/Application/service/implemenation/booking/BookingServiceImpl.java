@@ -28,7 +28,7 @@ public class BookingServiceImpl implements IBooking {
     private final SeatInventoryRepository seatInventoryRepository;
     private final FlightScheduleRepository flightScheduleRepository;
     private final UserRepository userRepository;
-    private final  PNRGenerator    pnrGenerator;
+    private   PNRGenerator  pnrGenerator;
 
 
     @Override
