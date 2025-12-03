@@ -172,6 +172,7 @@ public class UserController {
         UserResponseDTO userResponseDTO =  new UserResponseDTO();
         return userServices.getUserById(id)
                 .map(userResponseDTO1 ->   ResponseEntity.status( userResponseDTO.getStatusCode()).body(userResponseDTO.getUser()))
+
                 .onErrorResume(throwable -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
 
