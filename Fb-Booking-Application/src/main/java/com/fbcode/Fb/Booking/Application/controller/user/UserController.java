@@ -41,7 +41,7 @@ public class UserController {
                                 .header("X-Error-Message", throwable.getMessage())
                                 .build())
                 );
-    }
+        }
 
 
 

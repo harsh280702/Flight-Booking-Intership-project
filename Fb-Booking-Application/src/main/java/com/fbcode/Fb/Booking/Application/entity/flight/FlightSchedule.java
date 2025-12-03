@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FlightSchedule {
+public class FlightSchedule extends FlightEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

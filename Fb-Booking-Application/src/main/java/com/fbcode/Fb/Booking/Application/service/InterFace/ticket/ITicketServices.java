@@ -8,10 +8,10 @@ import reactor.core.publisher.Mono;
 public interface ITicketServices {
 
     Mono<UserResponseDTO> createTicket(TicketEntity ticketEntity);
-    Mono<UserResponseDTO> updateTicket(TicketEntity ticketEntity);
-    Mono<UserResponseDTO> deleteTicket(TicketEntity ticketEntity);
-    Flux<TicketEntity> getTickets();
-    Mono<TicketEntity> getTicket(String ticketId);
+    Mono<UserResponseDTO> updateTicket( Long id,TicketEntity ticketEntity);
+    Mono<UserResponseDTO> deleteTicket(Long id);
+    Flux<UserResponseDTO> getTickets();
+    Mono<UserResponseDTO> getTicket(Long ticketId);
 
 
 

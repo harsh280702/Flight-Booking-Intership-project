@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fbcode.Fb.Booking.Application.entity.booking.BookingStatus;
 import com.fbcode.Fb.Booking.Application.entity.flight.FlightEntity;
 import com.fbcode.Fb.Booking.Application.entity.user.UserEntity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

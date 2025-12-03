@@ -153,7 +153,7 @@ public class Utils {
     // ---------------------------------------------------------
     // this is function is use TO mapped the Ticket Entity List TO Ticket Entity Dto List
     // ---------------------------------------------------------
-    public static List<TIcketEntityDto>  mappedTicketEntityToTicketEntityDto(List<TicketEntity> ticketEntity){
+    public static List<TIcketEntityDto>  mappedTicketEntityListToTicketEntityDtoList(List<TicketEntity> ticketEntity){
         return  ticketEntity .stream().map(Utils::mappedTicketEntityToTicketEntityDto).collect(Collectors.toList());
     }
 
