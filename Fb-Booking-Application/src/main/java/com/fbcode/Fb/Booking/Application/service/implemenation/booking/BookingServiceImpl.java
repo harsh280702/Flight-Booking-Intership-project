@@ -28,6 +28,7 @@ public class BookingServiceImpl implements IBooking {
     private final SeatInventoryRepository seatInventoryRepository;
     private final FlightScheduleRepository flightScheduleRepository;
     private final UserRepository userRepository;
+    private final  PNRGenerator    pnrGenerator;
 
 
     @Override
@@ -52,6 +53,10 @@ public class BookingServiceImpl implements IBooking {
                         .stream()
                         .findFirst()
                         .orElseThrow(() -> new OurException("No seats available"));
+
+
+                bookingEntity.setPnr(pnrGenerator.toString());
+
             }
             catch (OurException ex){
 
