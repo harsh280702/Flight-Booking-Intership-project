@@ -31,8 +31,11 @@ public class SecurityConfig {
                 .authenticationManager(jwtAuthenticationManager)
                 .securityContextRepository(jwtSecurityContextRepository)
                 .authorizeExchange(exchange ->exchange
-                        .pathMatchers("/auth/register", "/auth/login").permitAll()
-                        .pathMatchers("/flights/search").permitAll()
+                        .pathMatchers("/auth/**").permitAll()
+                        .pathMatchers("/booking/**").permitAll()
+                        .pathMatchers("/ticket/**").permitAll()
+                        .pathMatchers("/user/**").permitAll()
+                        .pathMatchers("/flights/**").permitAll()
                         .pathMatchers("/").hasRole("ADMIN")
                         .pathMatchers("/").hasRole("USER")
                        .anyExchange().authenticated())

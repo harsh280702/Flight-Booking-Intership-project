@@ -55,7 +55,7 @@ public class userServiceImpl implements IUserServices
 
             try {
                 // Check duplicate email
-                if (userRepository.finUserEntityByEmail(userEntity.getEmail()).isPresent()) {
+                if (userRepository.findUserEntityByEmail(userEntity.getEmail()).isPresent()) {
                     response.setStatusCode(300);
                     response.setMessage("Email Already Exists");
                     return response;
@@ -132,7 +132,7 @@ public class userServiceImpl implements IUserServices
     // DELETE USER
     // ---------------------------------------------------------
     @Override
-    public Mono<UserResponseDTO> deleteUser(Long id) {
+    public Mono<String> deleteUser(Long id) {
 
         return Mono.fromCallable(() -> {
 
@@ -156,7 +156,7 @@ public class userServiceImpl implements IUserServices
                 response.setMessage(e.getMessage());
             }
 
-            return response;
+            return response.getMessage();
 
         }).subscribeOn(Schedulers.boundedElastic());
     }
@@ -293,7 +293,7 @@ public class userServiceImpl implements IUserServices
             UserResponseDTO response = new UserResponseDTO();
 
             try {
-                UserEntity entity = userRepository.finUserEntityByEmail(email)
+                UserEntity entity = userRepository.findUserEntityByEmail(email)
                         .orElseThrow(() -> new OurException("User Not Found"));
 
                 response.setUser(Utils.mappedUserEntityToUserEntityDto(entity));
@@ -348,7 +348,7 @@ public class userServiceImpl implements IUserServices
 
         return Mono.fromCallable(() -> {
 
-            UserEntity entity = userRepository.finUserEntityByEmail(loginResponse.getEmail())
+            UserEntity entity = userRepository.findUserEntityByEmail(loginResponse.getEmail())
                     .orElseThrow(() -> new OurException("User Not Found"));
 
             if (!passwordEncoder.matches(loginResponse.getPassword(), entity.getPassword())) {

@@ -35,7 +35,7 @@ public interface IUserServices {
      * @param id user ID
      * @return Mono with delete response DTO
      */
-    Mono<UserResponseDTO> deleteUser(Long id);
+    Mono<String> deleteUser(Long id);
 
     /**
      * Fetch all users in a reactive stream.
@@ -99,6 +99,7 @@ public interface IUserServices {
      * @return Mono containing success message string
      */
     Mono<String> Logout(String token);
+
 
 
 
