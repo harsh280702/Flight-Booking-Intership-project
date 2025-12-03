@@ -11,7 +11,7 @@ import com.fbcode.Fb.Booking.Application.exception.OurException;
 import com.fbcode.Fb.Booking.Application.mapper.Utils;
 import com.fbcode.Fb.Booking.Application.repositry.booking.BookingRepositry;
 import com.fbcode.Fb.Booking.Application.repositry.user.TokenBlacklistRepository;
-import com.fbcode.Fb.Booking.Application.repositry.user.UserRepositry;
+import com.fbcode.Fb.Booking.Application.repositry.user.UserRepository;
 import com.fbcode.Fb.Booking.Application.service.InterFace.user.IUserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +38,7 @@ public class userServiceImpl implements IUserServices
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepositry userRepositry;
+    private UserRepository userRepository;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -55,7 +55,7 @@ public class userServiceImpl implements IUserServices
 
             try {
                 // Check duplicate email
-                if (userRepositry.finUserEntityByEmail(userEntity.getEmail()).isPresent()) {
+                if (userRepository.finUserEntityByEmail(userEntity.getEmail()).isPresent()) {
                     response.setStatusCode(300);
                     response.setMessage("Email Already Exists");
                     return response;
@@ -65,7 +65,7 @@ public class userServiceImpl implements IUserServices
                 userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 
                 // Save User
-                UserEntity savedUser = userRepositry.save(userEntity);
+                UserEntity savedUser = userRepository.save(userEntity);
 
                 response.setUser(Utils.mappedUserEntityToUserEntityDto(savedUser));
                 response.setStatusCode(200);
@@ -93,7 +93,7 @@ public class userServiceImpl implements IUserServices
             UserResponseDTO response = new UserResponseDTO();
 
             try {
-                UserEntity existing = userRepositry.findById(id)
+                UserEntity existing = userRepository.findById(id)
                         .orElseThrow(() -> new OurException("User Not Found"));
 
                 existing.setUsername(userEntity.getUsername());
@@ -107,7 +107,7 @@ public class userServiceImpl implements IUserServices
                 // Encode new password
                 existing.setPassword(passwordEncoder.encode(userEntity.getPassword()));
 
-                userRepositry.save(existing);
+                userRepository.save(existing);
 
                 response.setUser(Utils.mappedUserEntityToUserEntityDto(existing));
                 response.setStatusCode(200);
@@ -139,10 +139,10 @@ public class userServiceImpl implements IUserServices
             UserResponseDTO response = new UserResponseDTO();
 
             try {
-                UserEntity entity = userRepositry.findById(id)
+                UserEntity entity = userRepository.findById(id)
                         .orElseThrow(() -> new OurException("User Not Found"));
 
-                userRepositry.delete(entity);
+                userRepository.delete(entity);
 
                 response.setStatusCode(200);
                 response.setMessage("User deleted successfully");
@@ -173,7 +173,7 @@ public class userServiceImpl implements IUserServices
                     UserResponseDTO response = new UserResponseDTO();
 
                     try {
-                        List<UserEntity> users = userRepositry.findAll();
+                        List<UserEntity> users = userRepository.findAll();
 
                         List<UserEntityDto> dtoList =
                                 Utils.mappedUserEntityToUserEntityDtoList(users);
@@ -235,7 +235,7 @@ public class userServiceImpl implements IUserServices
             UserResponseDTO response = new UserResponseDTO();
 
             try {
-                UserEntity entity = userRepositry.findById(id)
+                UserEntity entity = userRepository.findById(id)
                         .orElseThrow(() -> new OurException("User Not Found"));
 
                 response.setUser(Utils.mappedUserEntityToUserEntityDto(entity));
@@ -264,7 +264,7 @@ public class userServiceImpl implements IUserServices
             UserResponseDTO response = new UserResponseDTO();
 
             try {
-                UserEntity entity = userRepositry.findByUsername(username)
+                UserEntity entity = userRepository.findByUsername(username)
                         .orElseThrow(() -> new OurException("User Not Found"));
 
                 response.setUser(Utils.mappedUserEntityToUserEntityDto(entity));
@@ -293,7 +293,7 @@ public class userServiceImpl implements IUserServices
             UserResponseDTO response = new UserResponseDTO();
 
             try {
-                UserEntity entity = userRepositry.finUserEntityByEmail(email)
+                UserEntity entity = userRepository.finUserEntityByEmail(email)
                         .orElseThrow(() -> new OurException("User Not Found"));
 
                 response.setUser(Utils.mappedUserEntityToUserEntityDto(entity));
@@ -322,7 +322,7 @@ public class userServiceImpl implements IUserServices
             UserResponseDTO response = new UserResponseDTO();
 
             try {
-                UserEntity entity = userRepositry.findUserEntityByPhone(phone)
+                UserEntity entity = userRepository.findUserEntityByPhone(phone)
                         .orElseThrow(() -> new OurException("User Not Found"));
 
                 response.setUser(Utils.mappedUserEntityToUserEntityDto(entity));
@@ -348,7 +348,7 @@ public class userServiceImpl implements IUserServices
 
         return Mono.fromCallable(() -> {
 
-            UserEntity entity = userRepositry.finUserEntityByEmail(loginResponse.getEmail())
+            UserEntity entity = userRepository.finUserEntityByEmail(loginResponse.getEmail())
                     .orElseThrow(() -> new OurException("User Not Found"));
 
             if (!passwordEncoder.matches(loginResponse.getPassword(), entity.getPassword())) {
